@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+    <!-- ── TOP BAR ───────────────────────────────────────────── -->
+    <div class="topbar">
+      <span class="topbar-logo">⚡ Dashboard</span>
+      <button id="themeToggle" class="btn-icon topbar-btn" aria-label="Toggle light/dark mode" title="Toggle theme">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+
+    <!-- ── GREETING ─────────────────────────────────────────── -->
+    <header class="greeting-section">
+      <p id="datetime" class="datetime"></p>
+      <h1 id="greeting" class="greeting"></h1>
+      <!-- Custom name row -->
+      <div class="name-row" id="nameDisplay">
+        <span id="nameLabel" class="name-label"></span>
+        <button id="editNameBtn" class="btn-inline" aria-label="Edit your name">✏️ Edit name</button>
+      </div>
+      <div class="name-row name-edit-row" id="nameEdit" hidden>
+        <input
+          type="text"
+          id="nameInput"
+          class="input input-inline"
+          placeholder="Enter your name…"
+          maxlength="40"
+        />
+        <button id="saveNameBtn" class="btn btn-primary btn-sm">Save</button>
+        <button id="cancelNameBtn" class="btn btn-ghost btn-sm">Cancel</button>
+      </div>
+    </header>
+
+    <main class="dashboard">
+
+      <!-- ── FOCUS TIMER ───────────────────────────────────── -->
+      <section class="card timer-card">
+        <h2 class="card-title">Focus Timer</h2>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="timer-controls">
+          <button id="startBtn"  class="btn btn-primary">Start</button>
+          <button id="stopBtn"   class="btn btn-secondary" disabled>Stop</button>
+          <button id="resetBtn"  class="btn btn-ghost">Reset</button>
+        </div>
+        <p id="timerStatus" class="timer-status">Ready to focus!</p>
+        <!-- Pomodoro duration setting -->
+        <div class="timer-setting">
+          <label for="pomoDuration" class="setting-label">Session length (min)</label>
+          <div class="pomo-row">
+            <input
+              type="number"
+              id="pomoDuration"
+              class="input input-sm"
+              min="1"
+              max="120"
+              value="25"
+            />
+            <button id="applyDuration" class="btn btn-ghost btn-sm">Apply</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TO-DO LIST ─────────────────────────────────────── -->
+      <section class="card todo-card">
+        <div class="todo-header">
+          <h2 class="card-title">To-Do List</h2>
+          <!-- Sort controls -->
+          <div class="sort-row">
+            <label for="sortSelect" class="setting-label">Sort</label>
+            <select id="sortSelect" class="input input-sm select-sm">
+              <option value="added">Added order</option>
+              <option value="alpha">A → Z</option>
+              <option value="done">Done last</option>
+            </select>
+          </div>
+        </div>
+        <div class="todo-input-row">
+          <input
+            type="text"
+            id="todoInput"
+            class="input"
+            placeholder="Add a new task…"
+            maxlength="120"
+          />
+          <button id="addTodoBtn" class="btn btn-primary">Add</button>
+        </div>
+        <p id="todoDupeWarn" class="warn-hint" hidden>⚠️ That task already exists!</p>
+        <ul id="todoList" class="todo-list"></ul>
+        <p id="todoEmpty" class="empty-hint">No tasks yet — add one above!</p>
+      </section>
+
+      <!-- ── QUICK LINKS ────────────────────────────────────── -->
+      <section class="card links-card">
+        <h2 class="card-title">Quick Links</h2>
+        <div class="links-input-row">
+          <input
+            type="text"
+            id="linkName"
+            class="input"
+            placeholder="Label (e.g. GitHub)"
+            maxlength="30"
+          />
+          <input
+            type="url"
+            id="linkUrl"
+            class="input"
+            placeholder="URL (e.g. https://github.com)"
+          />
+          <button id="addLinkBtn" class="btn btn-primary">Add</button>
+        </div>
+        <div id="linksList" class="links-list"></div>
+        <p id="linksEmpty" class="empty-hint">No links yet — add one above!</p>
+      </section>
+
+    </main>
+
+    <!-- ── EDIT MODALS ────────────────────────────────────────── -->
+
+    <!-- Todo edit modal -->
+    <div id="todoModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Edit task" hidden>
+      <div class="modal">
+        <h3 class="modal-title">Edit Task</h3>
+        <input type="text" id="todoEditInput" class="input" maxlength="120" />
+        <p id="todoEditDupeWarn" class="warn-hint" hidden>⚠️ Another task already has this name!</p>
+        <div class="modal-actions">
+          <button id="todoSaveBtn"   class="btn btn-primary">Save</button>
+          <button id="todoCancelBtn" class="btn btn-ghost">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link edit modal -->
+    <div id="linkModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Edit link" hidden>
+      <div class="modal">
+        <h3 class="modal-title">Edit Link</h3>
+        <input type="text" id="linkEditName" class="input" placeholder="Label" maxlength="30" />
+        <input type="url"  id="linkEditUrl"  class="input" placeholder="URL" style="margin-top:8px;" />
+        <div class="modal-actions">
+          <button id="linkSaveBtn"   class="btn btn-primary">Save</button>
+          <button id="linkCancelBtn" class="btn btn-ghost">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
